@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VITAMIN — Verification of Multi‑Agent Systems</title>
+  <meta name="description" content="VITAMIN is a modular, user‑friendly framework for the formal verification of Multi‑Agent Systems (MAS)" />
+  <meta property="og:title" content="VITAMIN — Verification of Multi‑Agent Systems" />
+  <meta property="og:description" content="A minimal, fast website for a modular framework that verifies Multi‑Agent Systems (MAS)" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/og-image.png" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="stylesheet" href="main.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Karla:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Karla:wght@400;500;600&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+  <link rel="manifest" href="./favicon/site.webmanifest">
+</head>
+
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+
+<header aria-label="Primary">
+  <div class="container nav">
+    <!-- SINISTRA: CTA -->
+    <a class="brand" href="#" aria-label="VITAMIN Home">ITAMIN</a>
+    
+
+    <!-- CENTRO: MENU -->
+    <div class="menu">
+     <button class="menu-btn" aria-expanded="false" aria-controls="menu-list" id="menuBtn" aria-label="Open menu">
+      <span class="material-symbols-outlined">menu</span>
+      </button>
+      <nav>
+        <ul id="menu-list" role="menubar">
+          <li role="none"><a role="menuitem" href="#features">FEATURES</a></li>
+          <li role="none"><a role="menuitem" href="#models">MODELS & LOGICS</a></li>
+          <li role="none"><a role="menuitem" href="#publications">PUBLICATIONS</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- DESTRA: BRAND -->
+    <a class="cta" href="https://vitamin-app.streamlit.app/" target="_blank">Launch VITAMIN</a>
+  </div>
+</header>
+
+
+  <main id="main">
+    <!-- Hero -->
+    <section id="home" class="stack-xl">
+      <div class="container hero">
+        <div>
+          <h1><span class="accent">V</span>er<span class="accent">I</span>fica<span class="accent">T</span>ion of <span class="accent">A</span> <span class="accent">M</span>ult<span class="accent">I</span>‑ge<span class="accent">N</span>t systems</h1>
+          <p class="lead">From modelling to verification, <br> with a simple interface and a modular design.</p>
+          <div class="hero-cta">
+            <a class="cta" href="#demo">Watch VITAMIN</a>
+            <a class="cta" href="#team">Behind VITAMIN</a>
+          </div>
+        </div>
+       <div class= "card--trail card--trail-top" aria-hidden="true"> <p class="kicker">Core Mechanisms</p> <p><strong>Modular & compositional</strong> design supporting multiple models and logics without touching the core engine.</p> <p><strong>Two modes:</strong> Expert (upload & verify) and Non‑Expert (guided creation).</p> <p><strong>Interactive</strong> verification with immediate feedback in the browser.</p> </div> 
+  
+
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="stack-lg">
+      <div class="container">
+        <h2>Features</h2>
+        <div class="grid-3">
+          <div class="card--trail card--trail-top">
+            <p class="kicker">Experts</p>
+            <p>Upload a model as text, choose a logic, and run verification on advanced specifications.</p>
+          </div>
+          <div class="card--trail card--trail-top">
+            <p class="kicker">Non‑Experts</p>
+            <p>Build models step‑by‑step with guided inputs. Define system characteristics without prior knowledge of formal logics.</p>
+          </div>
+          <div class="card--trail card--trail-top">
+            <p class="kicker">Developers</p>
+            <p>Extend VITAMIN with new models, logics, and verification methods thanks to its modular architecture.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Models & Logics -->
+    <section id="models" class="stack-lg">
+      <div class="container">
+        <h2>Models & Logics</h2>
+        <div class="grid-2">
+          <div class="card--trail card--trail-top">
+            <p class="kicker">Models</p>
+            <ul class="inline code" aria-label="Supported models">
+              <li>CGS</li>
+              <li>RB‑CGS</li>
+              <li>RAB‑CGS</li>
+              <li>Obstruction Models</li>
+              <li>wCGS</li>
+              <li>cap‑CGS</li>
+            </ul>
+          </div>
+          <div class="card--trail card--trail-top">
+            <p class="kicker">Logics</p>
+            <ul class="inline code" aria-label="Supported logics">
+              <li>CTL</li>
+              <li>ATL</li>
+              <li>RB‑ATL</li>
+              <li>RAB‑ATL</li>
+              <li>OL</li>
+              <li>OATL</li>
+              <li>ATLF</li>
+              <li>NatATL</li>
+              <li>Natural SL</li>
+              <li>cap‑ATL</li>
+            </ul>
+          </div>
+        </div>
+        <p class="small" style="margin-top:10px; color:var(--muted)">Explicit verification approaches are provided for the supported models and logics.</p>
+      </div>
+    </section>
+
+    <!-- Demo -->
+    <section id="demo" class="stack-lg">
+      <div class="container">
+        <h2>Demo</h2>
+        <p>Explore the tool in action.</p>
+        <!-- Replace the src URL with the real YouTube playlist link -->
+        <div class="video" aria-label="VITAMIN demo video">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PL7_3IMeFMCaC2dVUkEByoeML5L20nQD2P" title="VITAMIN demo playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+<section id="team" class="stack-lg">
+  <div class="container">
+    <h2>Team</h2>
+
+    <div class="team-rail">
+      <!-- Avatar sinistra -->
+      <figure class="member"
+              data-bio="Focuses on Formal Methods, Multi-Agent Systems, and Runtime Verification, bringing expertise in modular verification frameworks that make the analysis of intelligent systems reliable and accessible within VITAMIN."
+              data-email="mailto:angelo.ferrando@unimore.it"
+              data-site="https://angeloferrando.github.io/website"
+              data-extra="https://scholar.google.com/citations?user=ekIM0qgAAAAJ&hl=en&oi=ao">
+        <div class="avatar">
+          <img class="photo" src="images/angelo.png" alt="Angelo Ferrando">
+          <img class="check-badge" src="images/check-overlay.svg" alt="" aria-hidden="true">
+        </div>
+        <figcaption><strong>Angelo Ferrando</strong>
+          <span class="affiliation">University of Modena and Reggio Emilia • Italy</span>
+        </figcaption>
+      </figure>
+
+      <!-- Scheda centrale -->
+      <aside class="mid-sheet" id="team-sheet" aria-hidden="true" role="region">
+        <div class="mid-body">
+          <p class="bio" id="sheet-bio"></p>
+          <div class="sheet-links">
+            <a id="sheet-email" target="_self" aria-label="Email">
+              <span class="material-symbols-outlined">mail</span>
+            </a>
+            <a id="sheet-site" target="_blank" aria-label="Website">
+              <span class="material-symbols-outlined">language</span>
+            </a>
+            <a id="sheet-extra" target="_blank" aria-label="Google Scholar">
+              <span class="material-symbols-outlined">school</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Avatar destra -->
+      <figure class="member"
+              data-bio="Specialises in strategic reasoning, game theory, and formal verification, contributing to VITAMIN by advancing the logical foundations and models that support the verification of complex Multi-Agent Systems."
+              data-email="mailto:vadim.malvone@telecom-paris.fr"
+              data-site="https://vadimmalvone.github.io/"
+              data-extra="https://scholar.google.com/citations?user=tSmnfd8AAAAJ&hl=en">
+        <div class="avatar">
+          <img class="photo" src="images/vadim.png" alt="Vadim Malvone">
+          <img class="check-badge" src="images/check-overlay.svg" alt="" aria-hidden="true">
+        </div>
+        <figcaption><strong>Vadim Malvone</strong>
+          <span class="affiliation">Télécom Paris • France</span>
+        </figcaption>
+      </figure>
+    </div>
+<div class="team-collaborators">
+  <h3>Collaborators</h3>
+  <div class="grid-3">
+    <div class="card--trail card--trail-top small">
+      <strong>Marco Aruta</strong>
+      <p class="affiliation">University of Naples Federico II • Italy</p>
+    </div>
+    <div class="card--trail card--trail-top small">
+      <strong>Giulia Luongo</strong>
+    </div>
+    <div class="card--trail card--trail-top small">
+      <strong>Luca Malangone</strong>
+    </div>
+    <div class="card--trail card--trail-top small">
+      <strong>Clément Naves</strong>
+      <p class="affiliation">Télécom Paris • France</p>
+    </div>
+  </div>
+</div>
+
+  </div>
+</section>
+
+<section id="publications" class="stack-lg">
+  <div class="container">
+    <h2>Publications</h2>
+
+    <!-- Year filter -->
+    <div class="pub-filter" role="tablist" aria-label="Filter by year">
+      <button class="pill active" data-year="all" role="tab" aria-selected="true">All</button>
+      <button class="pill" data-year="2025" role="tab" aria-selected="false">2025</button>
+      <button class="pill" data-year="2024" role="tab" aria-selected="false">2024</button>
+      <!-- aggiungi nuovi anni qui -->
+    </div>
+
+    <!-- Card stile trail -->
+    <div class="mid-sheet pub-card open" id="pub-card" aria-live="polite">
+      <div class="pub-year" id="y2025" data-year="2025"> 
+        <h3 class="pub-h">2025</h3>
+        <ul class="pub-list">
+          <li><strong>AAMAS 2025</strong> — VITAMIN: VerIficaTion of A MultI ageNt system</li>
+          <li><strong>ICAART 2025</strong> — VITAMIN: A Compositional Framework for Model Checking of Multi-Agent Systems</li>
+        </ul>
+      </div>
+
+      <div class="pub-year" id="y2024" data-year="2024">
+        <h3 class="pub-h">2024</h3>
+        <ul class="pub-list">
+          <li><strong>WOA 2024</strong> — Hands-on VITAMIN: A Compositional Tool for Model Checking of Multi-Agent Systems</li>
+          <li>VITAMIN: A Compositional Framework for Model Checking of Multi-Agent Systems</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer>
+  <div class="container">
+    <p class="small">© <span id="year"></span> VITAMIN — VerIficaTion of A MultI‑geNt systems</p>
+  </div>
+</footer>
+
+<!-- Floating News 
+<button class="news-fab" id="newsFab" aria-haspopup="dialog" aria-controls="newsPanel" aria-expanded="false" aria-label="Open news">
+  <span class="material-symbols-outlined" aria-hidden="true">campaign</span>
+  <span class="news-dot" aria-hidden="true"></span>
+</button>
+
+<aside class="news-panel" id="newsPanel" role="dialog" aria-modal="false" aria-labelledby="newsTitle" aria-hidden="true">
+  <header class="news-head">
+    <h3 id="newsTitle">NEWS</h3>
+    <button class="news-close" id="newsClose" aria-label="Close news">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </header>
+
+  <div class="news-body">
+    
+    <article class="card--trail card--trail-top news-item">
+      <p class="news-meta"><time datetime="2025-03-01">Mar 1, 2025</time> • Update</p>
+      <p class="news-text">AAMAS 2025 paper accepted.</p>
+    </article>
+
+    <p class="news-more"><a href="#publications">See all publications →</a></p>
+  </div>
+</aside>-->
+
+  <script>
+    // Mobile menu toggle
+    const btn = document.getElementById('menuBtn');
+    const list = document.getElementById('menu-list');
+    btn?.addEventListener('click', () => {
+      const open = list.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Respect reduced motion for smooth scroll (already set in CSS), no additional JS needed.
+  </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sheet   = document.getElementById('team-sheet');
+  const bioEl   = document.getElementById('sheet-bio');
+  const emailEl = document.getElementById('sheet-email');
+  const siteEl  = document.getElementById('sheet-site');
+  const extraEl = document.getElementById('sheet-extra');
+
+  function populateFrom(member) {
+    const d = member.dataset;
+    bioEl.textContent = d.bio   || '';
+    emailEl.href      = d.email || '#';
+    siteEl.href       = d.site  || '#';
+    extraEl.href      = d.extra || '#';
+  }
+
+  function openFor(member) {
+    populateFrom(member);
+    sheet.classList.add('open');
+    sheet.setAttribute('aria-hidden', 'false');
+
+    // reset degli altri membri
+    document.querySelectorAll('.member').forEach(m => m.classList.remove('active'));
+    member.classList.add('active'); // mantiene il ✔
+  }
+
+  function closeSheet() {
+    sheet.classList.remove('open');
+    sheet.setAttribute('aria-hidden', 'true');
+    document.querySelectorAll('.member').forEach(m => m.classList.remove('active'));
+  }
+
+  // Gestione eventi su ciascun avatar
+  document.querySelectorAll('.member .avatar').forEach(av => {
+    const member = av.closest('.member');
+
+    // Click → toggle
+    av.addEventListener('click', () => {
+      if (member.classList.contains('active')) {
+        closeSheet();
+      } else {
+        openFor(member);
+      }
+    });
+
+    // Hover (solo desktop)
+    av.addEventListener('mouseenter', () => {
+      if (!member.classList.contains('active')) {
+        // il badge compare grazie al CSS :hover
+        populateFrom(member); // popola preview
+        sheet.classList.add('open');
+        sheet.setAttribute('aria-hidden', 'false');
+      }
+    });
+  });
+
+  // ESC per chiudere
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeSheet();
+  });
+
+  // Click fuori dal rail del team → chiudi
+  document.addEventListener('click', e => {
+    const inside = e.target.closest('.team-rail');
+    if (!inside) closeSheet();
+  });
+});
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.pub-filter .pill');
+  const groups  = document.querySelectorAll('.pub-card .pub-year');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+
+      const y = btn.dataset.year;
+      groups.forEach(g => {
+        g.classList.toggle('is-hidden', y !== 'all' && g.dataset.year !== y);
+      });
+    });
+  });
+});
+</script>
+
+<script>
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('nav a[href^="#"]');
+  if (!link) return;
+  const list = document.getElementById('menu-list');
+  const btn  = document.getElementById('menuBtn');
+  if (list && list.classList.contains('open')) {
+    list.classList.remove('open');
+    btn?.setAttribute('aria-expanded', 'false');
+  }
+});
+</script>
+
+<!-- <script>
+(() => {
+  const fab   = document.getElementById('newsFab');
+  const panel = document.getElementById('newsPanel');
+  const close = document.getElementById('newsClose');
+
+  const open = () => {
+    panel.classList.add('open');
+    panel.setAttribute('aria-hidden','false');
+    fab.setAttribute('aria-expanded','true');
+    fab.querySelector('.news-dot')?.remove();
+  };
+  const closePanel = () => {
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden','true');
+    fab.setAttribute('aria-expanded','false');
+  };
+
+  fab.addEventListener('click', () => panel.classList.contains('open') ? closePanel() : open());
+  close.addEventListener('click', closePanel);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && panel.classList.contains('open')) closePanel(); });
+  document.addEventListener('click', e => { if (!panel.contains(e.target) && !fab.contains(e.target) && panel.classList.contains('open')) closePanel(); });
+})();
+</script> -->
+
+
+
+
+
+</body>
+</html>

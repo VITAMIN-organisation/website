@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- cerchio pieno #00E676 -->
+  <circle cx="60" cy="60" r="58" fill="#00E676"></circle>
+  <!-- ✔ bianco -->
+  <path d="M40 62 L54 76 L82 46" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
