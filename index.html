@@ -3,22 +3,87 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VITAMIN — Verification of Multi‑Agent Systems</title>
-  <meta name="description" content="VITAMIN is a modular, user‑friendly framework for the formal verification of Multi‑Agent Systems (MAS)" />
-  <meta property="og:title" content="VITAMIN — Verification of Multi‑Agent Systems" />
-  <meta property="og:description" content="A minimal, fast website for a modular framework that verifies Multi‑Agent Systems (MAS)" />
+  <title>VITAMIN | Model Checking Framework for Multi-Agent Systems</title>
+  <meta name="description" content="VITAMIN is an online model-checking framework for Multi-Agent Systems, with a browser-based Workbench for models, logics, algorithms, and verification." />
+  <meta name="keywords" content="VITAMIN, model checking, multi-agent systems, formal verification, ATL, CTL, verification framework, model checker, workbench" />
+  <meta name="author" content="VITAMIN project" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://vitamin-organisation.github.io/website/" />
+  <meta property="og:title" content="VITAMIN | Model Checking Framework for Multi-Agent Systems" />
+  <meta property="og:description" content="Open the VITAMIN Workbench to model, configure logics, run verification, and inspect results directly from the browser." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/og-image.png" />
-  <meta name="theme-color" content="#ffffff" />
-  <link rel="stylesheet" href="main.css">
+  <meta property="og:url" content="https://vitamin-organisation.github.io/website/" />
+  <meta property="og:site_name" content="VITAMIN" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://vitamin-organisation.github.io/website/images/vitamin-demo.png" />
+  <meta property="og:image:alt" content="Screenshot of the VITAMIN web Workbench for model checking Multi-Agent Systems" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="VITAMIN | Model Checking Framework for Multi-Agent Systems" />
+  <meta name="twitter:description" content="A browser-based Workbench for modelling and verifying Multi-Agent Systems." />
+  <meta name="twitter:image" content="https://vitamin-organisation.github.io/website/images/vitamin-demo.png" />
+  <meta name="twitter:image:alt" content="Screenshot of the VITAMIN web Workbench for model checking Multi-Agent Systems" />
+  <meta name="theme-color" content="#f8fafc" />
+  <link rel="stylesheet" href="main.css?v=20260522">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Karla:wght@400;500;600&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Karla:wght@400;500;600&display=swap">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" rel="stylesheet" />
   <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
   <link rel="manifest" href="./favicon/site.webmanifest">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://vitamin-organisation.github.io/website/#website",
+        "name": "VITAMIN",
+        "url": "https://vitamin-organisation.github.io/website/",
+        "inLanguage": "en",
+        "description": "Project website for VITAMIN, an online model-checking framework for Multi-Agent Systems.",
+        "about": {
+          "@id": "https://vitamin-organisation.github.io/website/#software"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://vitamin-organisation.github.io/website/#software",
+        "name": "VITAMIN",
+        "alternateName": "VerIficaTion of A MultI ageNt system",
+        "url": "https://vitamin.r2.enst.fr/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web",
+        "isAccessibleForFree": true,
+        "browserRequirements": "Requires a modern web browser",
+        "keywords": "model checking, Multi-Agent Systems, formal verification, ATL, CTL, verification Workbench",
+        "description": "VITAMIN is an online model-checking framework for Multi-Agent Systems, with a browser-based Workbench for modelling, logic selection, verification execution, and result inspection.",
+        "softwareHelp": "https://vitamin.r2.enst.fr/api/documentation/architecture/",
+        "sameAs": [
+          "https://vitamin-organisation.github.io/website/",
+          "https://arxiv.org/abs/2403.02170"
+        ],
+        "creator": [
+          {
+            "@type": "Person",
+            "name": "Angelo Ferrando",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "Unimore"
+            }
+          },
+          {
+            "@type": "Person",
+            "name": "Vadim Malvone",
+            "affiliation": {
+              "@type": "Organization",
+              "name": "Télécom Paris"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -27,265 +92,503 @@
 <header aria-label="Primary">
   <div class="container nav">
     <!-- SINISTRA: CTA -->
-    <a class="brand" href="#" aria-label="VITAMIN Home">ITAMIN</a>
+    <a class="brand" href="#home" aria-label="VITAMIN Home">VITAMIN</a>
     
 
     <!-- CENTRO: MENU -->
     <div class="menu">
-     <button class="menu-btn" aria-expanded="false" aria-controls="menu-list" id="menuBtn" aria-label="Open menu">
-      <span class="material-symbols-outlined">menu</span>
+     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-list" id="menuBtn" aria-label="Open menu">
+      <span class="material-symbols-outlined" aria-hidden="true">menu</span>
       </button>
       <nav>
-        <ul id="menu-list" role="menubar">
-          <li role="none"><a role="menuitem" href="#features">FEATURES</a></li>
-          <li role="none"><a role="menuitem" href="#models">MODELS & LOGICS</a></li>
-          <li role="none"><a role="menuitem" href="#publications">PUBLICATIONS</a></li>
+        <ul id="menu-list">
+          <li><a href="#features">FRAMEWORK</a></li>
+          <li><a href="#publications">PAPERS</a></li>
+          <li><a href="#team">TEAM</a></li>
         </ul>
       </nav>
     </div>
 
     <!-- DESTRA: BRAND -->
-    <a class="cta" href="https://vitamin.r2.enst.fr" target="_blank">Launch VITAMIN</a>
+    <a class="cta cta--primary" href="https://vitamin.r2.enst.fr/" target="_blank" rel="noopener">Open Workbench</a>
   </div>
 </header>
 
 
   <main id="main">
     <!-- Hero -->
-    <section id="home" class="stack-xl">
+    <section id="home" class="stack-xl hero-section">
       <div class="container hero">
-        <div>
-          <h1><span class="accent">V</span>er<span class="accent">I</span>fica<span class="accent">T</span>ion of <span class="accent">A</span> <span class="accent">M</span>ult<span class="accent">I</span>‑age<span class="accent">N</span>t system</h1>
-          <p class="lead">From modelling to verification, <br> with a simple interface and a modular design.</p>
+        <div class="hero-copy">
+          <p class="hero-eyebrow">Project Website</p>
+          <h1 class="hero-title">VITAMIN</h1>
+          <p class="hero-subtitle">Verify Multi-Agent Systems<br>directly from the browser.</p>
+          <p class="lead">VITAMIN is an online verification framework where models, logics, and algorithms can be combined, extended, and executed through a web&nbsp;Workbench.</p>
           <div class="hero-cta">
-            <a class="cta" href="#demo">Watch VITAMIN</a>
-            <a class="cta" href="#team">Behind VITAMIN</a>
+            <a class="cta cta--primary" href="https://vitamin.r2.enst.fr/" target="_blank" rel="noopener">Open the Workbench</a>
+            <a class="cta" href="#publications">Read the Papers</a>
           </div>
         </div>
-       <div class= "card--trail card--trail-top" aria-hidden="true"> <p class="kicker">Core Mechanisms</p> <p><strong>Modular & compositional</strong> design supporting multiple models and logics without touching the core engine.</p> <p><strong>Two modes:</strong> Expert (upload & verify) and Non‑Expert (guided creation).</p> <p><strong>Interactive</strong> verification with immediate feedback in the browser.</p> </div> 
-  
-
+        <div class="hero-workflow" aria-label="How VITAMIN works">
+          <p class="hero-workflow-title">How VITAMIN works</p>
+          <div class="hero-step">
+            <span class="hero-step-index">01</span>
+            <div>
+              <strong>Start from a model</strong>
+              <p>Example, upload, or guided creation.</p>
+            </div>
+          </div>
+          <div class="hero-step">
+            <span class="hero-step-index">02</span>
+            <div>
+              <strong>Configure the model</strong>
+              <p>Agents, states, actions, transitions, labels, and resources.</p>
+            </div>
+          </div>
+          <div class="hero-step">
+            <span class="hero-step-index">03</span>
+            <div>
+              <strong>Select logic and formula</strong>
+              <p>Choose the formalism and the property to verify.</p>
+            </div>
+          </div>
+          <div class="hero-step">
+            <span class="hero-step-index">04</span>
+            <div>
+              <strong>Run verification</strong>
+              <p>Execute model checking and inspect the result.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Features -->
     <section id="features" class="stack-lg">
-      <div class="container">
-        <h2>Features</h2>
+      <div class="container models-section">
+        <h2>Use VITAMIN your way</h2>
+        <p class="section-lead">Start with a guided workflow, upload your own model, or extend the framework with new models, logics, and verification procedures.</p>
         <div class="grid-3">
           <div class="card--trail card--trail-top">
-            <p class="kicker">Experts</p>
-            <p>Upload a model as text, choose a logic, and run verification on advanced specifications.</p>
+            <p class="kicker">Non-experts</p>
+            <p>Build a model step by step through guided inputs. Define agents, states, actions, transitions, labels, and resources without prior knowledge of the input format.</p>
           </div>
           <div class="card--trail card--trail-top">
-            <p class="kicker">Non‑Experts</p>
-            <p>Build models step‑by‑step with guided inputs. Define system characteristics without prior knowledge of formal logics.</p>
+            <p class="kicker">Experts</p>
+            <p>Upload a formal model, select the corresponding logic, provide the property to verify, and run model checking directly from the Workbench.</p>
           </div>
           <div class="card--trail card--trail-top">
             <p class="kicker">Developers</p>
-            <p>Extend VITAMIN with new models, logics, and verification methods thanks to its modular architecture.</p>
+            <p>Extend VITAMIN by integrating new models, logics, parsers, or verification algorithms into its modular architecture.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Workbench -->
+    <section id="demo" class="stack-lg">
+      <div class="container">
+        <h2>The Workbench in action</h2>
+        <p class="section-lead">VITAMIN brings model definition, formula specification, verification execution, and result inspection into a single browser-based workflow.</p>
+        <div class="workbench-steps" aria-label="Workbench workflow">
+          <article class="workbench-step-card">
+            <div class="workbench-step-copy">
+              <span class="workbench-step-number">01</span>
+              <h3>Model definition</h3>
+              <p>Start from an example, upload a model, or build one step by step.</p>
+            </div>
+            <img src="images/vitamin-demo-1.png" alt="Workbench model definition view" width="387" height="637" loading="lazy" decoding="async">
+          </article>
+          <article class="workbench-step-card">
+            <div class="workbench-step-copy">
+              <span class="workbench-step-number">02</span>
+              <h3>Formula specification</h3>
+              <p>Select the logic and define the property to verify.</p>
+            </div>
+            <img src="images/vitamin-demo-2.png" alt="Workbench formula specification view" width="375" height="637" loading="lazy" decoding="async">
+          </article>
+          <article class="workbench-step-card">
+            <div class="workbench-step-copy">
+              <span class="workbench-step-number">03</span>
+              <h3>Run verification</h3>
+              <p>Execute model checking directly from the browser.</p>
+            </div>
+            <img src="images/vitamin-demo-3.png" alt="Workbench verification execution view" width="351" height="203" loading="lazy" decoding="async">
+          </article>
+          <article class="workbench-step-card">
+            <div class="workbench-step-copy">
+              <span class="workbench-step-number">04</span>
+              <h3>Result inspection</h3>
+              <p>Inspect satisfaction, execution time, metrics, and suggestions.</p>
+            </div>
+            <img src="images/vitamin-demo-4.png" alt="Workbench result inspection view" width="395" height="633" loading="lazy" decoding="async">
+          </article>
+        </div>
+        <div class="workbench-actions">
+          <a class="workbench-full-link" href="images/vitamin-demo.png" target="_blank" rel="noopener">Open full-size screenshot ↗</a>
+        </div>
+        <p class="table-note">Example workflow: load a model, specify an ATL formula, run verification, and inspect the result in the Workbench.</p>
       </div>
     </section>
 
     <!-- Models & Logics -->
     <section id="models" class="stack-lg">
       <div class="container">
-        <h2>Models & Logics</h2>
-        <div class="grid-2">
-          <div class="card--trail card--trail-top">
-            <p class="kicker">Models</p>
-            <ul class="inline code" aria-label="Supported models">
-              <li>CGS</li>
-              <li>RB‑CGS</li>
-              <li>RAB‑CGS</li>
-              <li>Obstruction Models</li>
-              <li>wCGS</li>
-              <li>cap‑CGS</li>
-            </ul>
+        <h2>Supported models and logics</h2>
+        <p class="section-lead">VITAMIN separates the main ingredients of the verification process: models, logics, and verification algorithms.<br>This modular design makes it possible to extend the framework with new formalisms and procedures.</p>
+        <div class="models-grid">
+          <div class="card--trail card--trail-top model-family-card">
+            <p class="kicker">Model formalisms</p>
+            <p class="model-tags">CGS · RB-CGS · RAB-CGS · Obstruction Models · wCGS · cap-CGS</p>
           </div>
-          <div class="card--trail card--trail-top">
-            <p class="kicker">Logics</p>
-            <ul class="inline code" aria-label="Supported logics">
-              <li>CTL</li>
-              <li>ATL</li>
-              <li>RB‑ATL</li>
-              <li>RAB‑ATL</li>
-              <li>OL</li>
-              <li>OATL</li>
-              <li>ATLF</li>
-              <li>NatATL</li>
-              <li>Natural SL</li>
-              <li>cap‑ATL</li>
-            </ul>
+          <div class="card--trail card--trail-top model-family-card">
+            <p class="kicker">Specification logics</p>
+            <p class="model-tags">CTL · ATL · RB-ATL · RAB-ATL · OL · OATL · ATLF · NatATL · Natural SL · cap-ATL</p>
           </div>
         </div>
-        <p class="small" style="margin-top:10px; color:var(--muted)">Explicit verification approaches are provided for the supported models and logics.</p>
+        <p class="table-note">The available combinations depend on the integrated verification modules. Open the Workbench examples to explore concrete configurations.</p>
       </div>
     </section>
 
-    <!-- Demo -->
-    <section id="demo" class="stack-lg">
+    <!-- Architecture -->
+    <section id="architecture" class="stack-lg architecture-section">
       <div class="container">
-        <h2>Demo</h2>
-        <p>Explore the tool in action.</p>
-        <!-- Replace the src URL with the real YouTube playlist link -->
-        <div class="video" aria-label="VITAMIN demo video">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=PL7_3IMeFMCaC2dVUkEByoeML5L20nQD2P" title="VITAMIN demo playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <h2>A modular architecture for verification</h2>
+        <p class="section-lead architecture-lead">VITAMIN separates model parsing, formula parsing, and verification algorithms into independent layers. The engine connects these components and returns a consistent verification result.</p>
+
+        <div class="architecture-pipeline" aria-label="VITAMIN architecture pipeline">
+          <div class="pipeline-step flow-host">
+            <span>01</span>
+            <strong>Workbench / host app</strong>
+          </div>
+          <div class="flow-arrow flow-down-host" aria-hidden="true">→</div>
+          <div class="pipeline-step flow-engine">
+            <span>02</span>
+            <strong>Engine runner</strong>
+          </div>
+          <div class="flow-arrow flow-down-engine" aria-hidden="true">→</div>
+          <div class="pipeline-step pipeline-step-wide flow-parsers">
+            <span>03</span>
+            <strong>Model and formula parsers</strong>
+          </div>
+          <div class="flow-arrow flow-down-parsers" aria-hidden="true">→</div>
+          <div class="pipeline-step flow-algorithm">
+            <span>04</span>
+            <strong>Explicit-state algorithm</strong>
+          </div>
+          <div class="flow-arrow flow-down-result" aria-hidden="true">→</div>
+          <div class="pipeline-step flow-result">
+            <span>05</span>
+            <strong>Verification result</strong>
+          </div>
         </div>
+
+        <div class="architecture-layers">
+          <article class="card--trail card--trail-top architecture-card">
+            <div>
+              <p class="kicker">Parser layer</p>
+              <p>Model parsers read .txt model files and build in-memory game structures. Formula parsers translate logical specifications into trees used by the algorithms.</p>
+            </div>
+          </article>
+          <article class="card--trail card--trail-top architecture-card">
+            <div>
+              <p class="kicker">Engine layer</p>
+              <p>The runner validates inputs, selects the correct parsers, reads the model file, calls the logic algorithm, and normalises errors.</p>
+            </div>
+          </article>
+          <article class="card--trail card--trail-top architecture-card">
+            <div>
+              <p class="kicker">Algorithm layer</p>
+              <p>Each logic is implemented through an explicit-state model-checking algorithm that evaluates the parsed formula over the parsed model and returns a standard result.</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="architecture-note">Implementation note: Current algorithms are explicit-state, making them readable and trace-friendly, although large models can be memory-heavy.</p>
+        <a class="architecture-doc-link" href="https://vitamin.r2.enst.fr/api/documentation/architecture/" target="_blank" rel="noopener">Read the architecture documentation ↗</a>
       </div>
     </section>
+
+<section id="publications" class="stack-lg">
+  <div class="container">
+    <h2>Publications and citation</h2>
+    <p class="section-lead publications-lead">Scientific publications, demo papers, and workshop contributions describing the design, implementation, and use of VITAMIN.</p>
+
+    <div class="pub-filter" aria-label="Filter publications by year">
+      <button class="pill active" type="button" data-year="all" aria-pressed="true">All</button>
+      <button class="pill" type="button" data-year="2025" aria-pressed="false">2025</button>
+      <button class="pill" type="button" data-year="2024" aria-pressed="false">2024</button>
+    </div>
+
+    <div class="publication-list" aria-live="polite">
+
+          <article class="card--trail card--trail-top publication-card" data-year="2025">
+        <p class="publication-meta">PAAMS 2025</p>
+        <div class="publication-body">
+          <h3>On the Usability and Extensibility of VITAMIN</h3>
+        </div>
+        <div class="publication-actions">
+          <a href="https://link.springer.com/chapter/10.1007/978-3-032-07638-0_30" target="_blank" rel="noopener">Paper</a>
+          <button class="bibtex-toggle" type="button" aria-expanded="false" aria-controls="bibtex-paams-2025">BibTeX</button>
+        </div>
+        <pre class="bibtex-block" id="bibtex-paams-2025" hidden><code>@inproceedings{DBLP:conf/paams/FerrandoM25,
+  author       = {Angelo Ferrando and
+                  Vadim Malvone},
+  editor       = {Philippe Mathieu and
+                  Fernando De la Prieta},
+  title        = {On the Usability and Extensibility of {VITAMIN}},
+  booktitle    = {Advances in Practical Applications of Agents, Multi-Agent Systems,
+                  and Computational Social Science: The {PAAMS} Collection - 23rd International
+                  Conference, {PAAMS} 2025, Lille, France, June 25-27, 2025, Proceedings},
+  series       = {Lecture Notes in Computer Science},
+  pages        = {354--359},
+  publisher    = {Springer},
+  year         = {2025},
+  url          = {https://doi.org/10.1007/978-3-032-07638-0\_30},
+  doi          = {10.1007/978-3-032-07638-0\_30},
+  timestamp    = {Sun, 01 Feb 2026 13:32:02 +0100},
+  biburl       = {https://dblp.org/rec/conf/paams/FerrandoM25.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}</code></pre>
+      </article>
+
+          <article class="card--trail card--trail-top publication-card" data-year="2025">
+        <p class="publication-meta">AAMAS 2025</p>
+        <div class="publication-body">
+          <h3>VITAMIN: VerIficaTion of A MultI ageNt system</h3>
+        </div>
+        <div class="publication-actions">
+          <a href="https://dl.acm.org/doi/epdf/10.5555/3709347.3744079" target="_blank" rel="noopener">Paper</a>
+          <button class="bibtex-toggle" type="button" aria-expanded="false" aria-controls="bibtex-aamas-2025">BibTeX</button>
+        </div>
+        <pre class="bibtex-block" id="bibtex-aamas-2025" hidden><code>@inproceedings{DBLP:conf/ifaamas/0001M25,
+  author       = {Angelo Ferrando and
+                  Vadim Malvone},
+  editor       = {Sanmay Das and
+                  Ann Now{\'{e}} and
+                  Yevgeniy Vorobeychik},
+  title        = {{VITAMIN:} VerIficaTion of {A} MultI ageNt system},
+  booktitle    = {Proceedings of the 24th International Conference on Autonomous Agents
+                  and Multiagent Systems, {AAMAS} 2025, Detroit, MI, USA, May 19-23,
+                  2025},
+  pages        = {3023--3025},
+  publisher    = {International Foundation for Autonomous Agents and Multiagent Systems
+                  / {ACM}},
+  year         = {2025},
+  url          = {https://dl.acm.org/doi/10.5555/3709347.3744079},
+  doi          = {10.5555/3709347.3744079},
+  timestamp    = {Tue, 29 Jul 2025 16:22:34 +0200},
+  biburl       = {https://dblp.org/rec/conf/ifaamas/0001M25.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}</code></pre>
+      </article>
+
+      <article class="card--trail card--trail-top publication-card" data-year="2025">
+        <p class="publication-meta">ICAART 2025</p>
+        <div class="publication-body">
+          <h3>VITAMIN: A Compositional Framework for Model Checking of Multi-Agent Systems</h3>
+        </div>
+        <div class="publication-actions">
+          <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013349600003890" target="_blank" rel="noopener">Paper</a>
+          <button class="bibtex-toggle" type="button" aria-expanded="false" aria-controls="bibtex-icaart-2025">BibTeX</button>
+        </div>
+        <pre class="bibtex-block" id="bibtex-icaart-2025" hidden><code>@inproceedings{DBLP:conf/icaart/0001M25,
+  author       = {Angelo Ferrando and
+                  Vadim Malvone},
+  editor       = {Ana Paula Rocha and
+                  Luc Steels and
+                  H. Jaap van den Herik},
+  title        = {{VITAMIN:} {A} Compositional Framework for Model Checking of Multi-Agent
+                  Systems},
+  booktitle    = {Proceedings of the 17th International Conference on Agents and Artificial
+                  Intelligence, {ICAART} 2025 - Volume 1, Porto, Portugal, February
+                  23-25, 2025},
+  pages        = {648--655},
+  publisher    = {{SCITEPRESS}},
+  year         = {2025},
+  url          = {https://doi.org/10.5220/0013349600003890},
+  doi          = {10.5220/0013349600003890},
+  timestamp    = {Tue, 15 Apr 2025 11:20:20 +0200},
+  biburl       = {https://dblp.org/rec/conf/icaart/0001M25.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}</code></pre>
+      </article>
+
+      <article class="card--trail card--trail-top publication-card" data-year="2024">
+        <p class="publication-meta">WOA 2024</p>
+        <div class="publication-body">
+          <h3>Hands-on VITAMIN: A Compositional Tool for Model Checking of Multi-Agent Systems</h3>
+        </div>
+        <div class="publication-actions">
+          <a href="https://ceur-ws.org/Vol-3735/paper_12.pdf" target="_blank" rel="noopener">Paper</a>
+          <button class="bibtex-toggle" type="button" aria-expanded="false" aria-controls="bibtex-woa-2024">BibTeX</button>
+        </div>
+        <pre class="bibtex-block" id="bibtex-woa-2024" hidden><code>@inproceedings{DBLP:conf/woa/0001M24,
+  author       = {Angelo Ferrando and
+                  Vadim Malvone},
+  editor       = {Marco Alderighi and
+                  Matteo Baldoni and
+                  Cristina Baroglio and
+                  Roberto Micalizio and
+                  Stefano Tedeschi},
+  title        = {Hands-on {VITAMIN:} {A} Compositional Tool for Model Checking of Multi-Agent
+                  Systems},
+  booktitle    = {Proceedings of the 25th Workshop "From Objects to Agents", Bard (Aosta),
+                  Italy, July 8-10, 2024},
+  series       = {{CEUR} Workshop Proceedings},
+  pages        = {148--160},
+  publisher    = {CEUR-WS.org},
+  year         = {2024},
+  url          = {https://ceur-ws.org/Vol-3735/paper\_12.pdf},
+  timestamp    = {Fri, 26 Jul 2024 22:35:03 +0200},
+  biburl       = {https://dblp.org/rec/conf/woa/0001M24.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+</code></pre>
+      </article>
+
+      <article class="card--trail card--trail-top publication-card" data-year="2024">
+        <p class="publication-meta">2024</p>
+        <div class="publication-body">
+          <h3>VITAMIN: A Compositional Framework for Model Checking of Multi-Agent Systems</h3>
+        </div>
+        <div class="publication-actions">
+          <a href="https://arxiv.org/pdf/2403.02170" target="_blank" rel="noopener">Paper</a>
+          <button class="bibtex-toggle" type="button" aria-expanded="false" aria-controls="bibtex-arxiv-2024">BibTeX</button>
+        </div>
+        <pre class="bibtex-block" id="bibtex-arxiv-2024" hidden><code>@article{DBLP:journals/corr/abs-2403-02170,
+  author       = {Angelo Ferrando and
+                  Vadim Malvone},
+  title        = {{VITAMIN:} {A} Compositional Framework for Model Checking of Multi-Agent
+                  Systems},
+  journal      = {CoRR},
+  volume       = {abs/2403.02170},
+  year         = {2024},
+  url          = {https://doi.org/10.48550/arXiv.2403.02170},
+  doi          = {10.48550/ARXIV.2403.02170},
+  eprinttype   = {arXiv},
+  eprint       = {2403.02170},
+  timestamp    = {Tue, 02 Apr 2024 16:35:34 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2403-02170.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}</code></pre>
+      </article>
+    </div>
+  </div>
+</section>
 
 <section id="team" class="stack-lg">
   <div class="container">
     <h2>Team</h2>
 
-    <div class="team-rail">
-      <!-- Avatar sinistra -->
-      <figure class="member"
-              data-bio="Focuses on Formal Methods, Multi-Agent Systems, and Runtime Verification, bringing expertise in modular verification frameworks that make the analysis of intelligent systems reliable and accessible within VITAMIN."
-              data-email="mailto:angelo.ferrando@unimore.it"
-              data-site="https://angeloferrando.github.io/website"
-              data-extra="https://scholar.google.com/citations?user=ekIM0qgAAAAJ&hl=en&oi=ao">
-        <div class="avatar">
-          <img class="photo" src="images/angelo.png" alt="Angelo Ferrando">
-          <img class="check-badge" src="images/check-overlay.svg" alt="" aria-hidden="true">
-        </div>
-        <figcaption><strong>Angelo Ferrando</strong>
-          <span class="affiliation">University of Modena and Reggio Emilia • Italy</span>
-        </figcaption>
-      </figure>
+    <p class="section-lead team-lead">VITAMIN is developed by researchers and developers working at the intersection of formal methods, multi-agent systems, and verification tools.</p>
 
-      <!-- Scheda centrale -->
-      <aside class="mid-sheet" id="team-sheet" aria-hidden="true" role="region">
-        <div class="mid-body">
-          <p class="bio" id="sheet-bio"></p>
-          <div class="sheet-links">
-            <a id="sheet-email" target="_self" aria-label="Email">
-              <span class="material-symbols-outlined">mail</span>
-            </a>
-            <a id="sheet-site" target="_blank" aria-label="Website">
-              <span class="material-symbols-outlined">language</span>
-            </a>
-            <a id="sheet-extra" target="_blank" aria-label="Google Scholar">
-              <span class="material-symbols-outlined">school</span>
-            </a>
+    <h3 class="team-subtitle">Core team</h3>
+    <div class="team-grid">
+      <article class="card--trail card--trail-top team-card">
+        <div class="team-card-header">
+          <div class="team-avatar-frame">
+            <img class="team-avatar" src="images/angelo-avatar.webp" alt="Angelo Ferrando" width="256" height="256" loading="lazy" decoding="async">
+          </div>
+          <div class="team-card-identity">
+            <p class="team-role">Co-creator</p>
+            <h4>Angelo Ferrando</h4>
+            <p class="affiliation">Unimore · Italy</p>
           </div>
         </div>
-      </aside>
-
-      <!-- Avatar destra -->
-      <figure class="member"
-              data-bio="Specialises in strategic reasoning, game theory, and formal verification, contributing to VITAMIN by advancing the logical foundations and models that support the verification of complex Multi-Agent Systems."
-              data-email="mailto:vadim.malvone@telecom-paris.fr"
-              data-site="https://vadimmalvone.github.io/"
-              data-extra="https://scholar.google.com/citations?user=tSmnfd8AAAAJ&hl=en">
-        <div class="avatar">
-          <img class="photo" src="images/vadim.png" alt="Vadim Malvone">
-          <img class="check-badge" src="images/check-overlay.svg" alt="" aria-hidden="true">
+        <div class="team-links">
+          <a href="mailto:angelo.ferrando@unimore.it" aria-label="Mail" title="Mail"><span class="material-symbols-outlined" aria-hidden="true">mail</span></a>
+          <a href="https://angeloferrando.github.io/website" target="_blank" rel="noopener" aria-label="Website" title="Website"><span class="material-symbols-outlined" aria-hidden="true">language</span></a>
+          <a href="https://scholar.google.com/citations?user=ekIM0qgAAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar"><span class="material-symbols-outlined" aria-hidden="true">school</span></a>
         </div>
-        <figcaption><strong>Vadim Malvone</strong>
-          <span class="affiliation">Télécom Paris • France</span>
-        </figcaption>
-      </figure>
-    </div>
-<div class="team-collaborators">
-  <h3>Collaborators</h3>
-  <div class="grid-3">
-    <div class="card--trail card--trail-top small">
-      <strong>Marco Aruta</strong>
-      <p class="affiliation">University of Naples Federico II • Italy</p>
-    </div>
-    <div class="card--trail card--trail-top small">
-      <strong>Giulia Luongo</strong>
-    </div>
-    <div class="card--trail card--trail-top small">
-      <strong>Luca Malangone</strong>
-    </div>
-    <div class="card--trail card--trail-top small">
-      <strong>Clément Naves</strong>
-      <p class="affiliation">Télécom Paris • France</p>
-    </div>
-  </div>
-</div>
+      </article>
 
-  </div>
-</section>
+      <article class="card--trail card--trail-top team-card">
+        <div class="team-card-header">
+          <div class="team-avatar-frame">
+            <img class="team-avatar" src="images/vadim-avatar.webp" alt="Vadim Malvone" width="256" height="256" loading="lazy" decoding="async">
+          </div>
+          <div class="team-card-identity">
+            <p class="team-role">Co-creator</p>
+            <h4>Vadim Malvone</h4>
+            <p class="affiliation">Télécom Paris · France</p>
+          </div>
+        </div>
+        <div class="team-links">
+          <a href="mailto:vadim.malvone@telecom-paris.fr" aria-label="Mail" title="Mail"><span class="material-symbols-outlined" aria-hidden="true">mail</span></a>
+          <a href="https://vadimmalvone.github.io/" target="_blank" rel="noopener" aria-label="Website" title="Website"><span class="material-symbols-outlined" aria-hidden="true">language</span></a>
+          <a href="https://scholar.google.com/citations?user=tSmnfd8AAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar"><span class="material-symbols-outlined" aria-hidden="true">school</span></a>
+        </div>
+      </article>
 
-<section id="publications" class="stack-lg">
-  <div class="container">
-    <h2>Publications</h2>
+      <article class="card--trail card--trail-top team-card">
+        <div class="team-card-header">
+          <div class="team-avatar-frame">
+            <div class="team-avatar team-avatar-placeholder" aria-hidden="true">KQ Ly</div>
+          </div>
+          <div class="team-card-identity">
+            <p class="team-role">Research Engineer</p>
+            <h4>Kim Quyen Ly</h4>
+            <p class="affiliation">Télécom Paris · France</p>
+          </div>
+        </div>
+      </article>
 
-    <!-- Year filter -->
-    <div class="pub-filter" role="tablist" aria-label="Filter by year">
-      <button class="pill active" data-year="all" role="tab" aria-selected="true">All</button>
-      <button class="pill" data-year="2025" role="tab" aria-selected="false">2025</button>
-      <button class="pill" data-year="2024" role="tab" aria-selected="false">2024</button>
-      <!-- aggiungi nuovi anni qui -->
     </div>
 
-    <!-- Card stile trail -->
-    <div class="mid-sheet pub-card open" id="pub-card" aria-live="polite">
-      <div class="pub-year" id="y2025" data-year="2025"> 
-        <h3 class="pub-h">2025</h3>
-        <ul class="pub-list">
-          <li><strong>AAMAS 2025</strong> — VITAMIN: VerIficaTion of A MultI ageNt system</li>
-          <li><strong>ICAART 2025</strong> — VITAMIN: A Compositional Framework for Model Checking of Multi-Agent Systems</li>
-        </ul>
-      </div>
-
-      <div class="pub-year" id="y2024" data-year="2024">
-        <h3 class="pub-h">2024</h3>
-        <ul class="pub-list">
-          <li><strong>WOA 2024</strong> — Hands-on VITAMIN: A Compositional Tool for Model Checking of Multi-Agent Systems</li>
-          <li>VITAMIN: A Compositional Framework for Model Checking of Multi-Agent Systems</li>
-        </ul>
+    <div class="team-collaborators">
+      <h3 class="team-subtitle">Collaborators</h3>
+      <div class="collaborator-grid" aria-label="VITAMIN collaborators">
+        <div class="collaborator-chip">
+          <strong>Marco Aruta</strong>
+          <span>Unina Federico II · Italy</span>
+        </div>
+        <div class="collaborator-chip">
+          <strong>Giulia Luongo</strong>
+        </div>
+        <div class="collaborator-chip">
+          <strong>Luca Malangone</strong>
+        </div>
+        <div class="collaborator-chip">
+          <strong>Clément Naves</strong>
+          <span>Télécom Paris · France</span>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
   </main>
 
   <footer>
-  <div class="container">
-    <p class="small">© <span id="year"></span> VITAMIN — VerIficaTion of A MultI‑geNt systems</p>
-  </div>
-</footer>
-
-<!-- Floating News 
-<button class="news-fab" id="newsFab" aria-haspopup="dialog" aria-controls="newsPanel" aria-expanded="false" aria-label="Open news">
-  <span class="material-symbols-outlined" aria-hidden="true">campaign</span>
-  <span class="news-dot" aria-hidden="true"></span>
-</button>
-
-<aside class="news-panel" id="newsPanel" role="dialog" aria-modal="false" aria-labelledby="newsTitle" aria-hidden="true">
-  <header class="news-head">
-    <h3 id="newsTitle">NEWS</h3>
-    <button class="news-close" id="newsClose" aria-label="Close news">
-      <span class="material-symbols-outlined">close</span>
-    </button>
-  </header>
-
-  <div class="news-body">
-    
-    <article class="card--trail card--trail-top news-item">
-      <p class="news-meta"><time datetime="2025-03-01">Mar 1, 2025</time> • Update</p>
-      <p class="news-text">AAMAS 2025 paper accepted.</p>
-    </article>
-
-    <p class="news-more"><a href="#publications">See all publications →</a></p>
-  </div>
-</aside>-->
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand footer-logo" href="#home" aria-label="VITAMIN Home">VITAMIN</a>
+        <p>Online model checking for Multi-Agent Systems.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="https://vitamin.r2.enst.fr/" target="_blank" rel="noopener">Workbench</a>
+        <a href="#publications">Papers</a>
+        <a href="https://vitamin.r2.enst.fr/api/documentation/architecture/" target="_blank" rel="noopener">Documentation</a>
+      </nav>
+      <p class="small">© <span id="year"></span> VITAMIN</p>
+    </div>
+  </footer>
 
   <script>
     // Mobile menu toggle
     const btn = document.getElementById('menuBtn');
     const list = document.getElementById('menu-list');
-    btn?.addEventListener('click', () => {
+    const toggleMenu = () => {
       const open = list.classList.toggle('open');
       btn.setAttribute('aria-expanded', String(open));
+    };
+    btn?.addEventListener('click', toggleMenu);
+    btn?.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      toggleMenu();
     });
 
     // Year
@@ -296,88 +599,37 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const sheet   = document.getElementById('team-sheet');
-  const bioEl   = document.getElementById('sheet-bio');
-  const emailEl = document.getElementById('sheet-email');
-  const siteEl  = document.getElementById('sheet-site');
-  const extraEl = document.getElementById('sheet-extra');
-
-  function populateFrom(member) {
-    const d = member.dataset;
-    bioEl.textContent = d.bio   || '';
-    emailEl.href      = d.email || '#';
-    siteEl.href       = d.site  || '#';
-    extraEl.href      = d.extra || '#';
-  }
-
-  function openFor(member) {
-    populateFrom(member);
-    sheet.classList.add('open');
-    sheet.setAttribute('aria-hidden', 'false');
-
-    // reset degli altri membri
-    document.querySelectorAll('.member').forEach(m => m.classList.remove('active'));
-    member.classList.add('active'); // mantiene il ✔
-  }
-
-  function closeSheet() {
-    sheet.classList.remove('open');
-    sheet.setAttribute('aria-hidden', 'true');
-    document.querySelectorAll('.member').forEach(m => m.classList.remove('active'));
-  }
-
-  // Gestione eventi su ciascun avatar
-  document.querySelectorAll('.member .avatar').forEach(av => {
-    const member = av.closest('.member');
-
-    // Click → toggle
-    av.addEventListener('click', () => {
-      if (member.classList.contains('active')) {
-        closeSheet();
-      } else {
-        openFor(member);
-      }
-    });
-
-    // Hover (solo desktop)
-    av.addEventListener('mouseenter', () => {
-      if (!member.classList.contains('active')) {
-        // il badge compare grazie al CSS :hover
-        populateFrom(member); // popola preview
-        sheet.classList.add('open');
-        sheet.setAttribute('aria-hidden', 'false');
-      }
-    });
-  });
-
-  // ESC per chiudere
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeSheet();
-  });
-
-  // Click fuori dal rail del team → chiudi
-  document.addEventListener('click', e => {
-    const inside = e.target.closest('.team-rail');
-    if (!inside) closeSheet();
-  });
-});
-</script>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.pub-filter .pill');
-  const groups  = document.querySelectorAll('.pub-card .pub-year');
+  const publications  = document.querySelectorAll('.publication-card');
+  const bibtexButtons = document.querySelectorAll('.bibtex-toggle');
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-      buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+      buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
 
       const y = btn.dataset.year;
-      groups.forEach(g => {
-        g.classList.toggle('is-hidden', y !== 'all' && g.dataset.year !== y);
+      publications.forEach(publication => {
+        publication.classList.toggle('is-hidden', y !== 'all' && publication.dataset.year !== y);
       });
+    });
+  });
+
+  bibtexButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const target = document.getElementById(button.getAttribute('aria-controls'));
+      const willOpen = target?.hasAttribute('hidden');
+
+      bibtexButtons.forEach(otherButton => {
+        const otherTarget = document.getElementById(otherButton.getAttribute('aria-controls'));
+        otherTarget?.setAttribute('hidden', '');
+        otherButton.setAttribute('aria-expanded', 'false');
+      });
+
+      if (target && willOpen) {
+        target.removeAttribute('hidden');
+        button.setAttribute('aria-expanded', 'true');
+      }
     });
   });
 });
@@ -394,36 +646,18 @@ document.addEventListener('click', (e) => {
     btn?.setAttribute('aria-expanded', 'false');
   }
 });
+
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  const list = document.getElementById('menu-list');
+  const btn  = document.getElementById('menuBtn');
+  if (list && list.classList.contains('open')) {
+    list.classList.remove('open');
+    btn?.setAttribute('aria-expanded', 'false');
+    btn?.focus();
+  }
+});
 </script>
-
-<!-- <script>
-(() => {
-  const fab   = document.getElementById('newsFab');
-  const panel = document.getElementById('newsPanel');
-  const close = document.getElementById('newsClose');
-
-  const open = () => {
-    panel.classList.add('open');
-    panel.setAttribute('aria-hidden','false');
-    fab.setAttribute('aria-expanded','true');
-    fab.querySelector('.news-dot')?.remove();
-  };
-  const closePanel = () => {
-    panel.classList.remove('open');
-    panel.setAttribute('aria-hidden','true');
-    fab.setAttribute('aria-expanded','false');
-  };
-
-  fab.addEventListener('click', () => panel.classList.contains('open') ? closePanel() : open());
-  close.addEventListener('click', closePanel);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && panel.classList.contains('open')) closePanel(); });
-  document.addEventListener('click', e => { if (!panel.contains(e.target) && !fab.contains(e.target) && panel.classList.contains('open')) closePanel(); });
-})();
-</script> -->
-
-
-
-
 
 </body>
 </html>
