@@ -524,7 +524,7 @@
       <article class="card--trail card--trail-top team-card">
         <div class="team-card-header">
           <div class="team-avatar-frame">
-            <div class="team-avatar team-avatar-placeholder" aria-hidden="true">KQ Ly</div>
+            <img class="team-avatar" src="images/kim-quyen-ly-avatar.webp" alt="Kim Quyen Ly" width="256" height="256" loading="lazy" decoding="async">
           </div>
           <div class="team-card-identity">
             <p class="team-role">Research Engineer</p>
@@ -575,6 +575,86 @@
       <p class="small">© <span id="year"></span> VITAMIN</p>
     </div>
   </footer>
+
+  <button class="updates-fab" id="updatesButton" type="button" aria-expanded="false" aria-controls="updatesPanel">
+    <span class="updates-fab-label">Latest updates</span>
+    <span class="updates-badge" id="updatesBadge">New</span>
+  </button>
+
+  <div class="updates-backdrop" id="updatesBackdrop" hidden></div>
+
+  <aside class="updates-panel" id="updatesPanel" role="dialog" aria-modal="true" aria-labelledby="updatesTitle" hidden>
+    <div class="updates-panel-header">
+      <div>
+        <p class="updates-kicker">Project news</p>
+        <h2 id="updatesTitle">Latest updates</h2>
+      </div>
+      <button class="updates-close" id="updatesClose" type="button" aria-label="Close latest updates">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+
+    <div class="updates-list">
+      <article class="updates-item">
+        <p class="updates-meta"><time datetime="2026-05-25">25 May 2026</time> · Tutorial</p>
+        <h3>
+          VITAMIN tutorial at
+          <a class="updates-title-link" href="https://cyprusconferences.org/aamas2026/" target="_blank" rel="noopener">AAMAS 2026 ↗</a>
+        </h3>
+      </article>
+
+      <article class="updates-item">
+        <p class="updates-meta"><time datetime="2026-05">May 2026</time> · Workbench</p>
+        <h3>
+          <a class="updates-title-link" href="https://vitamin.r2.enst.fr/" target="_blank" rel="noopener">Workbench ↗</a>
+          available online
+        </h3>
+      </article>
+    </div>
+  </aside>
+
+  <button class="assistant-fab" id="assistantButton" type="button" aria-expanded="false" aria-controls="assistantPanel">
+    <span class="assistant-fab-icon material-symbols-outlined" aria-hidden="true">smart_toy</span>
+    <span class="assistant-fab-label">Ask Vitty</span>
+  </button>
+
+  <div class="assistant-backdrop" id="assistantBackdrop" hidden></div>
+
+  <aside class="assistant-panel" id="assistantPanel" role="dialog" aria-modal="true" aria-labelledby="assistantTitle" hidden>
+    <div class="assistant-header">
+      <div>
+        <p class="assistant-kicker">Virtual assistant</p>
+        <h2 id="assistantTitle">Vitty</h2>
+      </div>
+      <button class="assistant-close" id="assistantClose" type="button" aria-label="Close Vitty assistant">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </div>
+
+    <div class="assistant-messages" id="assistantMessages" aria-live="polite">
+      <div class="assistant-message assistant-message--bot">
+        <p>Hi, I’m Vitty, your VITAMIN assistant. Ask me anything about the platform!</p>
+      </div>
+      <div class="assistant-note">
+        <span class="material-symbols-outlined" aria-hidden="true">verified</span>
+        <p>Prototype assistant. Formal verification is still performed by VITAMIN model-checking algorithms.</p>
+      </div>
+    </div>
+
+    <div class="assistant-suggestions" aria-label="Suggested questions">
+      <button type="button" data-question="How do I start from an example?">Start from an example</button>
+      <button type="button" data-question="Which logic should I choose?">Choose a logic</button>
+      <button type="button" data-question="What happens after verification?">Read a result</button>
+    </div>
+
+    <form class="assistant-form" id="assistantForm">
+      <label class="sr-only" for="assistantInput">Ask Vitty a question</label>
+      <input id="assistantInput" type="text" autocomplete="off" placeholder="Ask about examples, logics, formulas..." maxlength="180">
+      <button type="submit" aria-label="Send question">
+        <span class="material-symbols-outlined" aria-hidden="true">arrow_upward</span>
+      </button>
+    </form>
+  </aside>
 
   <script>
     // Mobile menu toggle
@@ -656,6 +736,803 @@ document.addEventListener('keydown', (e) => {
     btn?.setAttribute('aria-expanded', 'false');
     btn?.focus();
   }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const updatesButton = document.getElementById('updatesButton');
+  const updatesPanel = document.getElementById('updatesPanel');
+  const updatesBackdrop = document.getElementById('updatesBackdrop');
+  const updatesClose = document.getElementById('updatesClose');
+  const updatesBadge = document.getElementById('updatesBadge');
+  let previousFocus = null;
+
+  const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  const updatesStorageKey = 'vitaminUpdatesSeenSignature';
+  const getUpdatesSignature = () => [...updatesPanel.querySelectorAll('.updates-item')]
+    .map((item) => [
+      item.querySelector('time')?.getAttribute('datetime') || '',
+      item.querySelector('h3')?.textContent.trim() || '',
+      item.querySelector('a')?.getAttribute('href') || '',
+      item.querySelector('a')?.textContent.trim() || ''
+    ].join('|'))
+    .join('::');
+  const updatesSignature = getUpdatesSignature();
+  const getStoredSignature = () => {
+    try {
+      return localStorage.getItem(updatesStorageKey);
+    } catch {
+      return null;
+    }
+  };
+  const storeCurrentSignature = () => {
+    try {
+      localStorage.setItem(updatesStorageKey, updatesSignature);
+    } catch {
+      // If storage is unavailable, keep the badge visible for this session.
+    }
+  };
+
+  const openUpdates = () => {
+    document.dispatchEvent(new CustomEvent('assistant:close'));
+    previousFocus = document.activeElement;
+    storeCurrentSignature();
+    updatesBadge.hidden = true;
+    updatesPanel.hidden = false;
+    updatesBackdrop.hidden = false;
+    requestAnimationFrame(() => {
+      updatesPanel.classList.add('is-open');
+      updatesButton.setAttribute('aria-expanded', 'true');
+      updatesClose.focus();
+    });
+  };
+
+  const closeUpdates = () => {
+    updatesPanel.classList.remove('is-open');
+    updatesButton.setAttribute('aria-expanded', 'false');
+    window.setTimeout(() => {
+      updatesPanel.hidden = true;
+      updatesBackdrop.hidden = true;
+      previousFocus?.focus?.();
+    }, 180);
+  };
+
+  updatesButton?.addEventListener('click', openUpdates);
+  updatesClose?.addEventListener('click', closeUpdates);
+  updatesBackdrop?.addEventListener('click', closeUpdates);
+  document.addEventListener('updates:close', () => {
+    if (!updatesPanel.hidden) closeUpdates();
+  });
+
+  updatesPanel?.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    if (link) closeUpdates();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (updatesPanel.hidden) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeUpdates();
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
+
+    const focusable = [...updatesPanel.querySelectorAll(focusableSelector)]
+      .filter((element) => element.offsetParent !== null);
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  if (getStoredSignature() === updatesSignature) {
+    updatesBadge.hidden = true;
+  } else {
+    updatesBadge.hidden = false;
+  }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const assistantButton = document.getElementById('assistantButton');
+  const assistantPanel = document.getElementById('assistantPanel');
+  const assistantBackdrop = document.getElementById('assistantBackdrop');
+  const assistantClose = document.getElementById('assistantClose');
+  const assistantMessages = document.getElementById('assistantMessages');
+  const assistantForm = document.getElementById('assistantForm');
+  const assistantInput = document.getElementById('assistantInput');
+  const suggestionButtons = document.querySelectorAll('.assistant-suggestions button');
+  let previousFocus = null;
+
+  const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  const docsLinks = {
+    workbench: [
+      { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+    ],
+    models: [
+      { label: 'Models & logics', href: '#models' },
+      { label: 'File formats', href: 'https://vitamin.r2.enst.fr/api/documentation/file_formats/', external: true }
+    ],
+    logics: [
+      { label: 'Models & logics', href: '#models' },
+      { label: 'Logic knowledge base', href: 'https://vitamin.r2.enst.fr/api/documentation/logic_knowledge_base/', external: true }
+    ],
+    extension: [
+      { label: 'Adding a new logic', href: 'https://vitamin.r2.enst.fr/api/documentation/adding_a_new_logic/', external: true },
+      { label: 'Documentation home', href: 'https://vitamin.r2.enst.fr/api/documentation/', external: true }
+    ],
+    architecture: [
+      { label: 'Architecture docs', href: 'https://vitamin.r2.enst.fr/api/documentation/architecture/', external: true },
+      { label: 'API overview', href: 'https://vitamin.r2.enst.fr/api/documentation/api/overview/', external: true }
+    ],
+    stack: [
+      { label: 'VITAMIN Stack', href: 'https://vitamin.r2.enst.fr/api/documentation/vitamin-stack/', external: true },
+      { label: 'Architecture docs', href: 'https://vitamin.r2.enst.fr/api/documentation/architecture/', external: true }
+    ],
+    userGuide: [
+      { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true },
+      { label: 'Documentation home', href: 'https://vitamin.r2.enst.fr/api/documentation/', external: true }
+    ]
+  };
+  const supportedModels = ['CGS', 'RB-CGS', 'RAB-CGS', 'Obstruction Models', 'wCGS', 'cap-CGS'];
+  const supportedLogics = ['CTL', 'ATL', 'LTL', 'RB-ATL', 'RAB-ATL', 'OL', 'OATL', 'ATLF', 'NatATL', 'Natural SL', 'NatSL', 'cap-ATL'];
+  const modelAliases = [
+    { label: 'RB-CGS', terms: ['rb-cgs', 'resource bounded cgs', 'resource-bounded cgs', 'resource bounded model', 'resource-bounded model'] },
+    { label: 'RAB-CGS', terms: ['rab-cgs', 'resource aware', 'resource-aware'] },
+    { label: 'Obstruction Models', terms: ['obstruction', 'ostruzione'] },
+    { label: 'wCGS', terms: ['wcgs', 'weighted cgs', 'weighted', 'cost-aware', 'cost aware'] },
+    { label: 'cap-CGS', terms: ['cap-cgs', 'capability', 'capabilities'] },
+    { label: 'CGS', terms: ['cgs', 'concurrent game structure'] }
+  ];
+  const logicAliases = [
+    { label: 'RB-ATL', terms: ['rb-atl', 'resource bounded atl', 'resource-bounded atl'] },
+    { label: 'RAB-ATL', terms: ['rab-atl', 'resource aware atl', 'resource-aware atl'] },
+    { label: 'OATL', terms: ['oatl'] },
+    { label: 'OL', terms: ['ol', 'obstruction logic'] },
+    { label: 'ATLF', terms: ['atlf'] },
+    { label: 'NatATL', terms: ['natatl', 'natural atl'] },
+    { label: 'Natural SL', terms: ['natural sl', 'strategy logic'] },
+    { label: 'NatSL', terms: ['natsl', 'natsl_sequential', 'natsl alternated', 'natsl_alternated'] },
+    { label: 'cap-ATL', terms: ['cap-atl', 'capability atl'] },
+    { label: 'LTL', terms: ['ltl', 'linear temporal logic'] },
+    { label: 'CTL', terms: ['ctl'] },
+    { label: 'ATL', terms: ['atl'] }
+  ];
+  const teamContacts = [
+    {
+      name: 'Angelo Ferrando',
+      terms: ['angelo', 'angelo ferrando', 'ferrando'],
+      email: 'angelo.ferrando@unimore.it',
+      website: 'https://angeloferrando.github.io/website',
+      scholar: 'https://scholar.google.com/citations?user=ekIM0qgAAAAJ&hl=en&oi=ao'
+    },
+    {
+      name: 'Vadim Malvone',
+      terms: ['vadim', 'vadim malvone', 'malvone'],
+      email: 'vadim.malvone@telecom-paris.fr',
+      website: 'https://vadimmalvone.github.io/',
+      scholar: 'https://scholar.google.com/citations?user=tSmnfd8AAAAJ&hl=en'
+    },
+    {
+      name: 'Kim Quyen Ly',
+      terms: ['kim', 'kim quyen ly', 'quyen ly'],
+      email: null
+    }
+  ];
+  const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const termMatches = (text, term) => {
+    if (/^[a-z0-9]{1,4}$/i.test(term)) {
+      return new RegExp(`(^|[^a-z0-9])${escapeRegExp(term)}([^a-z0-9]|$)`, 'i').test(text);
+    }
+    return text.includes(term);
+  };
+  const normalizeQuestion = (text) => text
+    .toLowerCase()
+    .replace(/[’']/g, '')
+    .replace(/\bu\b/g, 'you')
+    .replace(/\br\b/g, 'are')
+    .replace(/\bur\b/g, 'your')
+    .replace(/\bpls\b/g, 'please')
+    .replace(/\bplz\b/g, 'please')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const includesAny = (text, terms) => terms.some((term) => termMatches(text, term));
+  const findMention = (text, catalog) => catalog.find(({ terms }) => includesAny(text, terms));
+  const makeContactAnswer = (question) => {
+    const normalized = normalizeQuestion(question);
+    const asksContact = includesAny(normalized, ['email', 'e-mail', 'mail', 'contact', 'contattare', 'mandare un email', 'mandare una mail', 'send an email', 'write to']);
+    if (!asksContact) return null;
+
+    const contact = findMention(normalized, teamContacts);
+    if (!contact) {
+      return {
+        text: 'You can find available contact links in the Team section. Vitty can provide direct emails only for team members whose email is listed on the website.',
+        links: [
+          { label: 'Team', href: '#team' }
+        ]
+      };
+    }
+
+    if (!contact.email) {
+      return {
+        text: `${contact.name} does not currently have a public email listed on this website. Check the Team section for the available profile information.`,
+        links: [
+          { label: 'Team', href: '#team' }
+        ]
+      };
+    }
+
+    return {
+      text: `You can contact ${contact.name} at ${contact.email}.`,
+      links: [
+        { label: `Email ${contact.name}`, href: `mailto:${contact.email}` },
+        ...(contact.website ? [{ label: 'Website', href: contact.website, external: true }] : []),
+        ...(contact.scholar ? [{ label: 'Google Scholar', href: contact.scholar, external: true }] : [])
+      ]
+    };
+  };
+  const makeSupportAnswer = (question) => {
+    const normalized = normalizeQuestion(question);
+    const asksSupport = includesAny(normalized, ['posso usare', 'can i use', 'support', 'supporta', 'supported', 'compatibile', 'available', 'accetta']);
+    const asksModel = includesAny(normalized, ['model', 'modello', 'formalism', 'formalismo']);
+    const asksLogic = includesAny(normalized, ['logic', 'logica', 'formula', 'property', 'proprietà', 'proprieta']);
+    const model = findMention(normalized, modelAliases);
+    const logic = findMention(normalized, logicAliases);
+
+    if (asksModel && asksLogic && includesAny(normalized, ['all models', 'every model', 'all logics', 'every logic', 'used with all', 'used with every', 'all model families', 'tutti i modelli', 'tutte le logiche'])) {
+      return {
+        text: 'No. Not all VITAMIN models can be used with all logics. Compatibility depends on the model family, the selected logic, and the verification algorithm available for that combination. In the Workbench, load a model first and then check the compatible logics shown for that model.',
+        links: [
+          { label: 'Models & logics', href: '#models' },
+          { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+        ]
+      };
+    }
+
+    if (asksSupport && asksModel && !asksLogic && !model) {
+      return {
+        text: `VITAMIN supports model families such as ${supportedModels.join(', ')}. The available examples and concrete configurations depend on the modules currently integrated in the Workbench.`,
+        links: docsLinks.models
+      };
+    }
+
+    if (asksSupport && asksLogic && !asksModel && !logic) {
+      return {
+        text: `VITAMIN supports specification logics such as ${supportedLogics.join(', ')}. Not every logic is available for every model family, so the Workbench shows compatible choices after a model is loaded.`,
+        links: docsLinks.logics
+      };
+    }
+
+    if (includesAny(normalized, ['ltl', 'linear temporal logic'])) {
+      return {
+        text: 'LTL is a specification logic, not a model formalism. In the Workbench, use a compatible model first, then select LTL in the Verification Formula area if it is available for that model. The Model Information panel helps confirm compatible logics.',
+        links: [...docsLinks.workbench, ...docsLinks.logics]
+      };
+    }
+
+    if (model && asksLogic) {
+      return {
+        text: `${model.label} is a model family, not a specification logic. In VITAMIN, models and logics are separate: choose a model formalism first, then select a compatible logic and formula for verification.`,
+        links: docsLinks.models
+      };
+    }
+
+    if (logic && asksModel) {
+      return {
+        text: `${logic.label} is a specification logic, not a model formalism. VITAMIN separates model families (${supportedModels.join(', ')}) from logics (${supportedLogics.join(', ')}).`,
+        links: docsLinks.logics
+      };
+    }
+
+    if (model) {
+      return {
+        text: `Yes, ${model.label} is listed as a supported VITAMIN model family. Use it when the verification task matches that formalism, then select a compatible logic in the Workbench.`,
+        links: docsLinks.models
+      };
+    }
+
+    if (logic) {
+      return {
+        text: `Yes, ${logic.label} is listed as a supported VITAMIN specification logic. Select it in the Workbench when the model family and verification task are compatible.`,
+        links: docsLinks.logics
+      };
+    }
+
+    if (asksSupport && (asksModel || asksLogic)) {
+      return {
+        text: `The current VITAMIN ecosystem lists model families such as ${supportedModels.join(', ')} and logics such as ${supportedLogics.join(', ')}. If the formalism you need is not listed, it may require an extension module.`,
+        links: [...docsLinks.models, ...docsLinks.extension]
+      };
+    }
+
+    return null;
+  };
+  const guideAnswers = [
+    {
+      keywords: ['who are you', 'who are u', 'who r u', 'what are you', 'what are u', 'what r u', 'are you vitty', 'r u vitty', 'chi sei', 'cosa sei'],
+      text: 'I am Vitty, the VITAMIN assistant. I help visitors understand what VITAMIN is, how the Workbench works, which models and logics are supported, where to find papers and documentation, and how to contact the team.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true },
+        { label: 'Documentation home', href: 'https://vitamin.r2.enst.fr/api/documentation/', external: true }
+      ]
+    },
+    {
+      keywords: ['who created you', 'who made you', 'who built you', 'who developed you', 'who are you made by', 'chi ti ha creato', 'chi ti ha fatto'],
+      text: 'I was created for the VITAMIN project website as a lightweight assistant for visitors. My answers are based on the website content, the Workbench User Guide, and the VITAMIN technical documentation.',
+      links: [
+        { label: 'Documentation home', href: 'https://vitamin.r2.enst.fr/api/documentation/', external: true }
+      ]
+    },
+    {
+      keywords: ['how does the vitamin workflow work', 'vitamin workflow', 'how does the workflow work', 'workflow work', 'verification workflow', 'workflow di vitamin', 'come funziona il workflow'],
+      text: 'The VITAMIN workflow is: start from a model, configure agents, states, actions, transitions, labels and resources, select a compatible logic and formula, run verification, then inspect the result in the Workbench.',
+      links: [
+        { label: 'Workbench in action', href: '#demo' },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['what is vitamin', 'cos è vitamin', 'cosa è vitamin', 'che cos è vitamin', 'what does vitamin do'],
+      text: 'VITAMIN is an online verification and model-checking framework for Multi-Agent Systems. It lets users combine models, logics, and verification algorithms through a browser-based Workbench.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true },
+        { label: 'Documentation home', href: 'https://vitamin.r2.enst.fr/api/documentation/', external: true }
+      ]
+    },
+    {
+      keywords: ['when vitamin was created', 'when was vitamin created', 'when was vitamin started', 'when did vitamin start', 'what year was vitamin created', 'quando è nato vitamin', 'quando e nato vitamin'],
+      text: 'VITAMIN was created in 2022.',
+      links: [
+        { label: 'Team', href: '#team' },
+        { label: 'Publications', href: '#publications' }
+      ]
+    },
+    {
+      keywords: ['what problem does vitamin solve', 'which problem does vitamin solve', 'problem vitamin solves', 'problema risolve vitamin', 'che problema risolve vitamin'],
+      text: 'VITAMIN solves the problem of making model checking for Multi-Agent Systems easier to use and extend. Instead of handling models, logics, parsers, algorithms, and results as separate technical steps, VITAMIN brings them together in a modular browser-based workflow.',
+      links: [
+        { label: 'Workbench in action', href: '#demo' },
+        { label: 'Architecture docs', href: 'https://vitamin.r2.enst.fr/api/documentation/architecture/', external: true }
+      ]
+    },
+    {
+      keywords: ['what can i do with vitamin', 'what can vitamin do', 'cosa posso fare con vitamin', 'what is vitamin used for', 'use vitamin for'],
+      text: 'With VITAMIN you can load or create a model, choose a compatible logic, write or generate a formula, run model checking, inspect the result, and export verification evidence from the Workbench.',
+      links: [
+        { label: 'Workbench in action', href: '#demo' },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['what is the workbench', 'workbench?', 'cos è il workbench', 'cosa è il workbench', 'browser workbench'],
+      text: 'The Workbench is the operational web interface of VITAMIN. The project website presents the framework; the Workbench is where you actually load examples, define models and formulas, run verification, and inspect results.',
+      links: docsLinks.workbench
+    },
+    {
+      keywords: ['who is vitamin for', 'who can use vitamin', 'target users', 'utenti vitamin', 'a chi serve vitamin', 'for experts', 'for non-experts'],
+      text: 'VITAMIN is designed for non-experts who need guided model creation, experts who want to upload formal models and run verification, and developers who want to extend the framework with new models, logics, parsers, or algorithms.',
+      links: [
+        { label: 'Use VITAMIN your way', href: '#features' }
+      ]
+    },
+    {
+      keywords: ['do i need to be an expert', 'need to be an expert', 'expert in model checking', 'without prior knowledge', 'non expert', 'non-expert', 'devo essere esperto', 'serve essere esperto'],
+      text: 'No. VITAMIN is designed for both experts and non-experts. You can start from guided creation or ready-made examples without knowing the input format, while expert users can still upload formal models and configure verification directly.',
+      links: [
+        { label: 'Use VITAMIN your way', href: '#features' },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['recommended path for a beginner', 'best path for a beginner', 'beginner path', 'recommended workflow for a beginner', 'beginner workflow', 'new user path', 'percorso consigliato principiante'],
+      text: 'For a beginner, the recommended path is: open the Workbench, load a ready-made example, inspect the model, keep the suggested logic and formula, run verification, then read the result. After that, try guided model creation or edit the example step by step.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true },
+        { label: 'Workbench in action', href: '#demo' }
+      ]
+    },
+    {
+      keywords: ['what should i read first', 'what to read first', 'where should i start reading', 'first thing to read', 'read first', 'cosa devo leggere prima', 'da cosa parto a leggere'],
+      text: 'If you are new to VITAMIN, read the Workbench User Guide first because it explains the practical workflow. Then skim the Models & Logics section on this website. If you need the scientific background, read the main framework paper from Publications.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true },
+        { label: 'Models & logics', href: '#models' },
+        { label: 'Publications', href: '#publications' }
+      ]
+    },
+    {
+      keywords: ['research or teaching', 'used for research', 'used for teaching', 'research and teaching', 'for research', 'for teaching', 'didattica', 'ricerca', 'insegnamento'],
+      text: 'Yes. VITAMIN can be used for research, demos, and teaching. Researchers can cite the publications and experiment with modular verification workflows; teachers can use the Workbench examples to explain models, logics, formulas, and verification results interactively.',
+      links: [
+        { label: 'Publications', href: '#publications' },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['how do i start using vitamin', 'how to start', 'getting started', 'iniziare con vitamin', 'come inizio', 'start using vitamin'],
+      text: 'The quickest way to start is to open the Workbench, load a ready-made example, select the logic and formula, then run verification. If you already have a model, upload the .txt file and let the editor validate it first.',
+      links: docsLinks.workbench
+    },
+    {
+      keywords: ['agents states actions transitions labels resources', 'what are agents', 'what are states', 'what are actions', 'what are transitions', 'what are labels', 'what are resources', 'agents, states', 'states actions transitions'],
+      text: 'In VITAMIN models, agents are the entities that act; states describe possible situations; actions are choices available to agents; transitions describe how joint actions move the system between states; labels attach atomic propositions to states; resources represent quantitative constraints used by resource-aware model families.',
+      links: [
+        { label: 'File formats', href: 'https://vitamin.r2.enst.fr/api/documentation/file_formats/', external: true },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['which models are supported', 'supported models', 'model families', 'modelli supportati', 'quali modelli'],
+      text: `VITAMIN currently presents model families such as ${supportedModels.join(', ')}. The Workbench may expose concrete examples and compatible configurations for each family.`,
+      links: docsLinks.models
+    },
+    {
+      keywords: ['which logics are supported', 'supported logics', 'logics supported', 'logiche supportate', 'quali logiche'],
+      text: `VITAMIN supports specification logics such as ${supportedLogics.join(', ')}. Availability depends on the selected model family and the verification modules integrated in the Workbench.`,
+      links: docsLinks.logics
+    },
+    {
+      keywords: ['can every logic be used with every model', 'every logic with every model', 'all logics with all models', 'logic compatible with model', 'compatible logics', 'compatibilità logiche', 'compatibilita logiche'],
+      text: 'No. VITAMIN separates models, logics, and verification algorithms, but not every logic is compatible with every model family. After loading a model, check the Model Information panel and the logic selector in the Workbench for compatible options.',
+      links: [
+        { label: 'Models & logics', href: '#models' },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['what happens when i run verification', 'when i run verification', 'what happens during verification', 'cosa succede quando verifico', 'run model checking'],
+      text: 'When you run verification, the Workbench sends the selected model, logic, and formula to the VITAMIN engine. The engine parses the model and formula, calls the matching verification algorithm, then returns a result such as SATISFIED, NOT SATISFIED, or FAILED with metrics and traces when available.',
+      links: [
+        { label: 'Workbench in action', href: '#demo' },
+        ...docsLinks.architecture
+      ]
+    },
+    {
+      keywords: ['what happens after verification', 'after verification', 'read a result', 'read the result', 'how do i read a result', 'how to read a result', 'interpret result', 'understand result', 'leggere risultato', 'interpretare risultato'],
+      text: 'After verification, check the result status first: SATISFIED, NOT SATISFIED, or FAILED. Then inspect the details, metrics, satisfying states or counterexample, and any trace returned by the Workbench. You can also export the result as PDF, JSON, or LaTeX.',
+      links: [
+        { label: 'Workbench in action', href: '#demo' },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['how is vitamin organized internally', 'organized internally', 'internal organization', 'internally organized', 'how is vitamin architecture organized', 'architecture organized', 'organized architecture', 'vitamin architecture', 'architettura vitamin'],
+      text: 'VITAMIN is organized in layers: a Workbench or host app, an engine runner, model and formula parsers, explicit-state verification algorithms, and a standard verification result. This modular design makes the framework easier to extend.',
+      links: docsLinks.architecture
+    },
+    {
+      keywords: ['where is the architecture documentation', 'where can i find the architecture documentation', 'architecture documentation', 'architecture docs', 'link to architecture', 'documentazione architettura', 'dove trovo architettura'],
+      text: 'You can find the architecture documentation in the VITAMIN technical docs. It explains how the Workbench or host app, engine runner, parsers, verification algorithms, and result dictionary fit together.',
+      links: [
+        { label: 'Architecture docs', href: 'https://vitamin.r2.enst.fr/api/documentation/architecture/', external: true }
+      ]
+    },
+    {
+      keywords: ['can developers extend vitamin', 'developers extend', 'extend vitamin', 'add new logic', 'add new model', 'add parser', 'sviluppatori estendere'],
+      text: 'Yes. Developers can extend VITAMIN by adding model parsers, formula parsers, logics, or verification algorithms without changing the whole architecture. The documentation explains contribution paths and how to add a new logic.',
+      links: [
+        { label: 'Adding a new logic', href: 'https://vitamin.r2.enst.fr/api/documentation/adding_a_new_logic/', external: true },
+        { label: 'Contributing', href: 'https://vitamin.r2.enst.fr/api/documentation/contributing/', external: true }
+      ]
+    },
+    {
+      keywords: ['where can i read the papers', 'where can i cite vitamin', 'read the papers', 'cite vitamin', 'citation', 'bibtex', 'papers', 'paper vitamin'],
+      text: 'You can read VITAMIN papers and copy BibTeX entries in the Publications section. If you use VITAMIN in research, cite the main framework paper listed there.',
+      links: [
+        { label: 'Publications', href: '#publications' }
+      ]
+    },
+    {
+      keywords: ['who created vitamin', 'who founded vitamin', 'who are the creators', 'who are the co-creators', 'creators of vitamin', 'fondatori vitamin'],
+      text: 'VITAMIN was co-created by Angelo Ferrando and Vadim Malvone. The project is developed with researchers and developers working on formal methods, multi-agent systems, and verification tools.',
+      links: [
+        { label: 'Team', href: '#team' }
+      ]
+    },
+    {
+      keywords: ['who develops vitamin', 'who developed vitamin', 'who made vitamin', 'team vitamin', 'who is the team', 'who are the team', 'developers of vitamin', 'chi sviluppa vitamin'],
+      text: 'The VITAMIN team includes the core team Angelo Ferrando, Vadim Malvone, and Kim Quyen Ly, together with collaborators listed on the website.',
+      links: [
+        { label: 'Team', href: '#team' }
+      ]
+    },
+    {
+      keywords: ['vitamin stack', 'main components', 'components of the stack', 'stack components', 'core components', 'what are the components', 'what is the stack'],
+      text: 'The VITAMIN Stack has three main components: the Workbench, which is the browser interface; the integration/API layer, which connects user actions to verification services; and the VITAMIN model-checker package, which contains model parsers, formula parsers, the engine runner, and explicit-state verification algorithms.',
+      links: docsLinks.stack
+    },
+    {
+      keywords: ['model definition', 'definire modello', 'define model', 'upload', 'caricare modello', 'editor', 'source', 'syntax help', 'examples', 'esempi modello'],
+      text: 'For model definition, the Workbench gives you several paths: start a new model, upload a .txt file, load an example, edit the text model, inspect syntax help, or use the Visual graph editor. Validation runs in the editor and flags parser errors before verification.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true },
+        { label: 'File formats', href: 'https://vitamin.r2.enst.fr/api/documentation/file_formats/', external: true }
+      ]
+    },
+    {
+      keywords: ['visual graph', 'graph designer', 'grafo', 'graph', 'visualize', 'visualizzare', 'show path', 'trace path', 'verification path', 'counterexample path', 'trace', 'counterexample', 'witness'],
+      text: 'Use the Visual tab after loading a valid model. You can inspect or edit the graph, switch layouts, export the view, and, after a trace is produced, show witness or counterexample paths directly on the graph.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['formula', 'property', 'proprietà', 'proprieta', 'blockly', 'visual formula', 'generate formula', 'natural language', 'autocomplete', 'batch', 'semicolon', 'multi-formula'],
+      text: 'Formula specification happens in the Verification Formula area. You can write formulas in the editor, use autocomplete, build them visually with Blockly, load examples, or generate a candidate formula from natural language. For batch checks, keep formulas separated with semicolons and place each formula on its own line.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true },
+        { label: 'Logic knowledge base', href: 'https://vitamin.r2.enst.fr/api/documentation/logic_knowledge_base/', external: true }
+      ]
+    },
+    {
+      keywords: ['run verification', 'execute verification', 'verifica', 'verification disabled', 'button disabled', 'bottone disabilitato', 'timeout', 'time limit', 'generate trace'],
+      text: 'Run Verification is enabled only when both the model and the formula are valid. You can optionally request a trace when the selected logic supports it. Verification has a time limit, so very large models or complex formulas may fail or time out.',
+      links: [
+        { label: 'Workbench in action', href: '#demo' },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['result', 'results', 'risultato', 'risultati', 'satisfied', 'not satisfied', 'failed', 'metrics', 'export', 'pdf', 'json', 'latex', 'raw output'],
+      text: 'Verification results can be SATISFIED, NOT SATISFIED, or FAILED. The Results panel includes overview, details, metrics, raw output, traces when available, and exports such as PDF, JSON, or LaTeX.',
+      links: [
+        { label: 'Workbench in action', href: '#demo' },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['error', 'errors', 'errore', 'errori', 'parser error', 'syntax error', 'red underline', 'underline', 'debug', 'troubleshooting', 'not working'],
+      text: 'If you see red underlines or parser errors, the model or formula likely does not match the expected syntax. In model files, comments should be on separate lines, not inline with data. If verification fails, check that the selected logic is compatible with the model and inspect the raw output in Results.',
+      links: [
+        { label: 'File formats', href: 'https://vitamin.r2.enst.fr/api/documentation/file_formats/', external: true },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['natsl', 'natural sl', 'sequential', 'alternated', 'alternating quantifiers', 'quantifiers'],
+      text: 'NatSL has different variants in the Workbench. Use NatSL_Sequential for standard strategy-quantifier sequences, and NatSL_Alternated when the property needs alternating quantifiers. Also check that the atomic propositions used in the formula match the model.',
+      links: [
+        { label: 'Logic knowledge base', href: 'https://vitamin.r2.enst.fr/api/documentation/logic_knowledge_base/', external: true },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['ai assistant', 'assistente ai', 'generate with ai', 'explain error', 'ollama', 'chromadb', 'vitty'],
+      text: 'The Workbench includes an AI assistant for help with formulas, errors, and model context. It can suggest formulas from natural language and explain issues, while the actual verification is still performed by VITAMIN model-checking algorithms.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['architecture', 'engine', 'runner', 'parser', 'factory', 'algorithm', 'explicit-state', 'explicit state', 'api', 'developer'],
+      text: 'Architecturally, VITAMIN separates model parsers, formula parsers, the engine runner, and explicit-state verification algorithms. The runner validates inputs, selects the right parsers, calls the algorithm, and normalises the result.',
+      links: docsLinks.architecture
+    },
+    {
+      keywords: ['file format', 'format', 'comments', 'commenti', 'inline comments', 'atomic proposition', 'atomic propositions', 'naming', 'reserved words'],
+      text: 'For file formats, keep comments on their own lines and make sure atomic propositions match the syntax expected by the selected logic. Most logics use lowercase proposition names; some natural-strategy examples are stricter, so the Workbench syntax help is the safest reference.',
+      links: [
+        { label: 'File formats', href: 'https://vitamin.r2.enst.fr/api/documentation/file_formats/', external: true },
+        { label: 'Logic knowledge base', href: 'https://vitamin.r2.enst.fr/api/documentation/logic_knowledge_base/', external: true }
+      ]
+    }
+  ];
+  const answers = [
+    {
+      keywords: ['example', 'start', 'begin'],
+      text: 'Start from a ready-made example in the Workbench. The internal User Guide also walks through model definition, verification formulas, execution, results, visual graphs, and troubleshooting.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['ltl', 'linear temporal logic', 'modello ltl', 'model ltl'],
+      text: 'LTL is a specification logic, not a model formalism. Load or create a compatible model first, then select LTL in the Workbench formula area if it is available for that model.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true },
+        { label: 'Logic knowledge base', href: 'https://vitamin.r2.enst.fr/api/documentation/logic_knowledge_base/', external: true },
+        { label: 'Models & logics', href: '#models' }
+      ]
+    },
+    {
+      keywords: ['logic', 'logica', 'atl', 'ctl', 'formula', 'property', 'proprietà', 'proprieta', 'strategic', 'strategico', 'strategica', 'temporal', 'temporale'],
+      text: 'Choose the logic after loading or defining the model. The Workbench shows which logics are compatible, then you can select the one that matches the property you want to verify: temporal behaviour, strategic abilities, resources, obstructions, or capabilities.',
+      links: [
+        { label: 'Models & logics', href: '#models' },
+        { label: 'Logic knowledge base', href: 'https://vitamin.r2.enst.fr/api/documentation/logic_knowledge_base/', external: true },
+        { label: 'File formats', href: 'https://vitamin.r2.enst.fr/api/documentation/file_formats/', external: true }
+      ]
+    },
+    {
+      keywords: ['result', 'verification', 'run', 'output'],
+      text: 'After running verification in the Workbench, inspect the satisfaction result together with execution details. The Workbench User Guide has dedicated sections for executing verification and reading results.',
+      links: [
+        { label: 'Workbench in action', href: '#demo' },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['error', 'parser', 'debug', 'syntax'],
+      text: 'Parser errors usually mean the model or formula does not match the expected input format. Check the file formats documentation and the Workbench User Guide troubleshooting section.',
+      links: [
+        { label: 'File formats', href: 'https://vitamin.r2.enst.fr/api/documentation/file_formats/', external: true },
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['paper', 'cite', 'publication'],
+      text: 'Jump to publications to open papers or copy BibTeX entries. If you use VITAMIN in research, cite the main framework paper.',
+      links: [
+        { label: 'Publications', href: '#publications' }
+      ]
+    },
+    {
+      keywords: ['documentation', 'docs', 'documentazione', 'deeper', 'technical', 'tecnica', 'internal'],
+      text: 'For deeper technical questions, use the VITAMIN documentation. It covers the stack, architecture, file formats, logic knowledge base, adding new logics, deployment ports, and API reference.',
+      links: [
+        { label: 'Documentation home', href: 'https://vitamin.r2.enst.fr/api/documentation/', external: true },
+        ...docsLinks.architecture
+      ]
+    },
+    {
+      keywords: ['user guide', 'guida', 'guide', 'tutorial', 'help', 'aiuto', 'how to'],
+      text: 'The Workbench includes an internal User Guide with sections on introduction, model definition, verification formulas, execution, results, visual graphs, AI assistant, and troubleshooting. Open the Workbench and choose User Guide from the welcome screen.',
+      links: [
+        { label: 'Open Workbench', href: 'https://vitamin.r2.enst.fr/', external: true }
+      ]
+    },
+    {
+      keywords: ['architecture', 'engine', 'runner', 'parser', 'algorithm'],
+      text: 'The technical documentation explains how model parsers, formula parsers, the engine runner, and explicit-state algorithms fit together.',
+      links: docsLinks.architecture
+    },
+    {
+      keywords: ['new logic', 'extend', 'extension', 'developer', 'contribute'],
+      text: 'If you want to extend VITAMIN, start from the technical documentation. It explains the stack, contribution workflow, and how to add a new logic.',
+      links: [
+        { label: 'Adding a new logic', href: 'https://vitamin.r2.enst.fr/api/documentation/adding_a_new_logic/', external: true },
+        { label: 'Contributing', href: 'https://vitamin.r2.enst.fr/api/documentation/contributing/', external: true }
+      ]
+    }
+  ];
+
+  const defaultAnswer = {
+    text: 'I can answer using the Workbench User Guide and the technical documentation: models, logics, formulas, graph editing, execution, results, parser errors, extensions, and architecture. Ask a concrete question and I will point to the right place only when useful.'
+  };
+
+  const addMessage = (text, type = 'bot', links = []) => {
+    const message = document.createElement('div');
+    message.className = `assistant-message assistant-message--${type}`;
+    const paragraph = document.createElement('p');
+    paragraph.textContent = text;
+    message.append(paragraph);
+    if (links.length) {
+      const actions = document.createElement('div');
+      actions.className = 'assistant-message-links';
+      links.forEach(({ label, href, external }) => {
+        const link = document.createElement('a');
+        link.href = href;
+        link.textContent = external ? `${label} ↗` : label;
+        if (external) {
+          link.target = '_blank';
+          link.rel = 'noopener';
+        }
+        actions.append(link);
+      });
+      message.append(actions);
+    }
+    assistantMessages.append(message);
+    assistantMessages.scrollTop = assistantMessages.scrollHeight;
+  };
+
+  const answerQuestion = (question) => {
+    const normalized = normalizeQuestion(question);
+    const supportAnswer = makeSupportAnswer(question);
+    if (supportAnswer) {
+      addMessage(supportAnswer.text, 'bot', supportAnswer.links || []);
+      return;
+    }
+    const contactAnswer = makeContactAnswer(question);
+    if (contactAnswer) {
+      addMessage(contactAnswer.text, 'bot', contactAnswer.links || []);
+      return;
+    }
+    const guideMatch = guideAnswers.find(({ keywords }) => keywords.some((keyword) => normalized.includes(keyword)));
+    const match = guideMatch || answers.find(({ keywords }) => keywords.some((keyword) => normalized.includes(keyword)));
+    const answer = match || defaultAnswer;
+    addMessage(answer.text, 'bot', answer.links || []);
+  };
+
+  const openAssistant = () => {
+    document.dispatchEvent(new CustomEvent('updates:close'));
+    previousFocus = document.activeElement;
+    assistantPanel.hidden = false;
+    assistantBackdrop.hidden = false;
+    requestAnimationFrame(() => {
+      assistantPanel.classList.add('is-open');
+      assistantButton.setAttribute('aria-expanded', 'true');
+      assistantInput.focus();
+    });
+  };
+
+  const closeAssistant = () => {
+    assistantPanel.classList.remove('is-open');
+    assistantButton.setAttribute('aria-expanded', 'false');
+    window.setTimeout(() => {
+      assistantPanel.hidden = true;
+      assistantBackdrop.hidden = true;
+      previousFocus?.focus?.();
+    }, 180);
+  };
+
+  assistantButton?.addEventListener('click', openAssistant);
+  assistantClose?.addEventListener('click', closeAssistant);
+  assistantBackdrop?.addEventListener('click', closeAssistant);
+  document.addEventListener('assistant:close', () => {
+    if (!assistantPanel.hidden) closeAssistant();
+  });
+  assistantPanel?.addEventListener('click', (event) => {
+    const link = event.target.closest('.assistant-message-links a[href^="#"]');
+    if (link) closeAssistant();
+  });
+
+  suggestionButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const question = button.dataset.question || button.textContent.trim();
+      addMessage(question, 'user');
+      answerQuestion(question);
+      assistantInput.focus();
+    });
+  });
+
+  assistantForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const question = assistantInput.value.trim();
+    if (!question) return;
+    addMessage(question, 'user');
+    answerQuestion(question);
+    assistantInput.value = '';
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (assistantPanel.hidden) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeAssistant();
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
+
+    const focusable = [...assistantPanel.querySelectorAll(focusableSelector)]
+      .filter((element) => element.offsetParent !== null);
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
 });
 </script>
 
